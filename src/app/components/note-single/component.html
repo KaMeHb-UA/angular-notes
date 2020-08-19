@@ -1,0 +1,7 @@
+<div>
+    I am single note with id {{ id }}
+    <div *ngFor="let todo of noteData;">
+        <input type="checkbox" (change)="todo.done">
+        <input (change)="todo.text" placeholder="Text here">
+    </div>
+</div>
