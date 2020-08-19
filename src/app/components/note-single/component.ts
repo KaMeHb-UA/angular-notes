@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import * as DB from '../../controllers/db';
 
 type Note = {
   done: boolean,
@@ -31,11 +32,11 @@ export default class NoteSingle implements OnInit{
   ngOnInit(){
     const id = this.element.getAttribute('data-id')!;
     this.id = id;
-    this.noteData = sortNote(new Array(+(localStorage.getItem('note' + id) || '')).fill(void 0).map((_, i) => ({
-      done: Boolean(+localStorage.getItem(`note${id}.${i}done`)!),
-      text: localStorage.getItem(`note${id}.${i}text`) || '',
+    const count = +DB.get('note' + id);
+    this.noteData = sortNote(new Array(count).fill(void 0).map((_, i) => ({
+      done: DB.get(`note${id}.${i}done`) || false,
+      text: DB.get(`note${id}.${i}text`) || '',
       i,
     })));
-    console.log({'this.noteData': this.noteData});
   }
 }

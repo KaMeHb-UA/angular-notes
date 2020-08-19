@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as DB from '../../controllers/db';
 
 @Component({
   selector: 'note-list',
@@ -6,10 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./component.scss']
 })
 export default class NoteList {
-  noteCount = +localStorage.getItem('noteCount')!
-  notes: number[] = new Array(this.noteCount).fill(void 0).map((_, i) => i)
-  addNote(){
-    localStorage.setItem('noteCount', '' + ++this.noteCount);
-    this.notes.push(this.notes.length)
+  notes: number[] = []
+  constructor(){
+    DB.onChange('noteCount', this.updateNotes.bind(this));
+    this.updateNotes(DB.get('noteCount'))
+  }
+  updateNotes(count: number){
+    this.notes = new Array(count).fill(void 0).map((_, i) => i)
   }
 }
