@@ -12,7 +12,7 @@ export default class NoteList {
     DB.onChange('noteCount', this.updateNotes.bind(this));
     this.updateNotes(DB.get('noteCount'))
   }
-  updateNotes(count: number){
-    this.notes = new Array(count).fill(void 0).map((_, i) => i)
+  updateNotes(count: number | null){
+    this.notes = new Array(+count!).fill(void 0).map((_, i) => i)
   }
 }
