@@ -2,11 +2,13 @@ const cache = Object.create(null);
 const handlers = Object.create(null);
 
 export function get(name){
-    if(!(name in cache)) cache[name] = localStorage.getItem(name);
-    try{
-        cache[name] = JSON.parse(cache[name])
-    } catch(e){
-        cache[name] = null
+    if(!(name in cache)){
+        const raw = localStorage.getItem(name);
+        try{
+            cache[name] = JSON.parse(raw)
+        } catch(e){
+            cache[name] = null
+        }
     }
     return cache[name]
 }
