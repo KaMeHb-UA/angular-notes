@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import * as DB from '../../controllers/db';
 
 @Component({
   selector: 'note-list',
   templateUrl: './component.html',
-  styleUrls: ['./component.scss']
+  styleUrls: [ './component.scss' ],
+  encapsulation: ViewEncapsulation.None,
 })
 export default class NoteList {
   notes: number[] = []

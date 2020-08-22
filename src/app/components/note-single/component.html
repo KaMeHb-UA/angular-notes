@@ -1,7 +1,19 @@
+<button
+    class="round cancel shadow-1"
+    (click)="clickCancel($event)"
+><i class="material-icons">arrow_back</i></button>
+<h6>I am single note with id {{ id }}</h6>
 <div>
-    I am single note with id {{ id }}
-    <div *ngFor="let todo of noteData;">
-        <input type="checkbox" (change)="setDone(todo.i, $event.target)" [attr.checked]="todo.done ? 'checked' : null">
-        <input (keyup)="setText(todo.i, $event.target)" placeholder="Text here" [value]="todo.text">
+    <div *ngFor="let todo of (active ? noteData : sortedNotes);">
+        <input
+            type="checkbox"
+            (change)="setDone(todo.i, $event.target)"
+            [attr.checked]="todo.done ? 'checked' : null"
+        >
+        <input
+            (keyup)="setText(todo.i, $event.target)"
+            placeholder="Text here"
+            [value]="todo.text"
+        >
     </div>
 </div>

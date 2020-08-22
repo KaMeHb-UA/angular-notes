@@ -1,2 +1,5 @@
-<div>NOTE LIST</div>
-<note-single *ngFor="let noteId of notes;" [attr.data-id]="noteId" data-full></note-single>
+<note-single
+    *ngFor="let noteId of notes;"
+    [attr.data-id]="noteId"
+    class="shadow-1"
+></note-single>

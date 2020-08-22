@@ -1,0 +1,16 @@
+note-list{
+    --padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: var(--padding);
+    padding: var(--padding);
+
+    &.has-active{
+        grid-template: auto / minmax(200px, 600px);
+        justify-content: center;
+
+        note-single:not(.active){
+            display: none;
+        }
+    }
+}

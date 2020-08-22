@@ -1,0 +1,59 @@
+note-single{
+    padding: 16px;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+
+    h6 {
+        font-size: 1.0625rem;
+        font-weight: 600;
+        line-height: 1.2;
+        margin: 0;
+        text-align: center;
+    }
+
+    > div{
+        min-height: 69px;
+        > div{
+            display: flex;
+        }
+    }
+
+    input:checked + input{
+        text-decoration: line-through;
+        color: #888;
+    }
+
+    input[type=checkbox] + input{
+        border: 0;
+        border-bottom: 1px solid transparent;
+        flex-grow: 1;
+        text-overflow: ellipsis;
+
+        &:focus{
+            border-bottom-color: #888;
+        }
+    }
+
+    &:not(.active){
+        button.cancel{
+            display: none;
+        }
+
+        input{
+            pointer-events: none;
+        }
+    }
+
+    &.active{
+        cursor: unset;
+    }
+
+    button.cancel{
+        position: absolute;
+        top: 0;
+        left: -18px;
+    }
+}
