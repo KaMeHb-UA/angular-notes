@@ -78,6 +78,7 @@ export default class NoteSingle implements OnInit{
       DB.set('note' + this.id, --this.count);
       value = DB.get(`note${this.id}.${--i}text`);
     }
+    this.sortNotes();
   }
   clickCancel(e: any){
     e.stopPropagation();
