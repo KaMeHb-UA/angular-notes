@@ -1,5 +1,6 @@
 note-list{
     --padding: 24px;
+    --padding-bottom: 52px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: var(--padding);
@@ -15,14 +16,14 @@ note-list{
     }
 
     > add-button{
-        min-height: calc(var(--height) + var(--padding) * 2);
+        min-height: calc(var(--height) + var(--padding) /* blk-material */ + var(--padding-bottom) /* any note-list child */);
         > div > i{
             font-size: 48px !important;
         }
     }
 
     > * {
-        --height: 120px;
+        --height: 80px;
         min-height: var(--height);
     }
 }
