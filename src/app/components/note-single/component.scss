@@ -72,4 +72,15 @@ note-single{
         top: 0;
         left: -18px;
     }
+
+    button.delete{
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+
+        &:hover,
+        &:focus{
+            color: red;
+        }
+    }
 }
