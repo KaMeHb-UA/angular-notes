@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+html {
+  background: #f7f9fc;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Roboto, Helvetica Neue, sans-serif;
+}
+input:focus {
+  outline: none;
+}
+.shadow-1 {
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+}
+button, .btn {
+  background-color: #fff;
+  border: 0;
+  padding: 6px;
+  height: 36px;
+  width: 36px;
+  cursor: pointer;
+}
+button.round, .btn.round {
+  border-radius: 50%;
+}
+button:focus, .btn:focus {
+  outline: none;
+}
+.blk-material {
+  --padding: 16px;
+  padding: var(--padding);
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-radius: 4px;
+  position: relative;
+}
+add-button {
+  padding: 0 !important;
+  overflow: hidden;
+  display: none;
+}
+note-list > add-button {
+  display: block;
+}
+@media only screen and (max-width: 767px) {
+  note-list:not(.has-active) + add-button {
+    display: block;
+  }
+
+  note-list > add-button {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map*/
