@@ -17,7 +17,7 @@ input:focus{
                 0px 1px 18px 0px rgba(0,0,0,.12);
 }
 
-button{
+button, .btn{
     background-color: #fff;
     border: 0;
     padding: 6px;
@@ -29,5 +29,34 @@ button{
     }
     &:focus{
         outline: none;
+    }
+}
+
+.blk-material{
+    --padding: 16px;
+    padding: var(--padding);
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    border-radius: 4px;
+    position: relative;
+}
+
+add-button{
+    padding: 0 !important;
+    overflow: hidden;
+    display: none;
+}
+
+note-list > add-button{
+    display: block;
+}
+
+@media only screen and (max-width: 767px){
+    add-button{
+        display: block;
+    }
+
+    note-list > add-button{
+        display: none;
     }
 }

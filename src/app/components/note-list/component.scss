@@ -9,8 +9,20 @@ note-list{
         grid-template: auto / minmax(200px, 600px);
         justify-content: center;
 
-        note-single:not(.active){
+        > *:not(.active){
             display: none;
         }
+    }
+
+    > add-button{
+        min-height: calc(var(--height) + var(--padding) * 2);
+        > div > i{
+            font-size: 48px !important;
+        }
+    }
+
+    > * {
+        --height: 120px;
+        min-height: var(--height);
     }
 }
