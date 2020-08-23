@@ -44,3 +44,7 @@ export function offChange(name, callback){
     removeHandler('u:' + name, callback);
     removeHandler('d:' + name, callback)
 }
+
+export function clearCache(){
+    for(const i in cache) delete cache[i]
+}

@@ -28,26 +28,40 @@ export default class NoteSingle implements OnInit{
   sortedNotes: Note = []
   count: number = 0
   active: boolean = false
-  renderer: Renderer2
   name: string = ''
   unnamed_text = 'Unnamed note'
-  constructor(elm: ElementRef, renderer: Renderer2){
+  constructor(elm: ElementRef, private renderer: Renderer2){
     this.element = elm.nativeElement;
-    this.renderer = renderer;
   }
   remove(e: Event){
     e.stopPropagation();
     const noteCount = DB.get('noteCount');
+    // clear self first
+    const selfCount = +DB.get('note' + this.id);
+    DB.remove(`note${this.id}`);
+    DB.remove(`note${this.id}.name`);
+    for(let i = 0; i < selfCount; i++){
+      DB.remove(`note${this.id}.${i}done`);
+      DB.remove(`note${this.id}.${i}text`);
+    }
     for(let id = +this.id + 1; id < noteCount; id++){
       const count = +DB.get('note' + id);
       DB.set(`note${id - 1}`, count);
       DB.set(`note${id - 1}.name`, DB.get(`note${id}.name`));
+      DB.remove(`note${id}`);
+      DB.remove(`note${id}.name`);
       for(let i = 0; i < count; i++){
         DB.set(`note${id - 1}.${i}done`, DB.get(`note${id}.${i}done`));
         DB.set(`note${id - 1}.${i}text`, DB.get(`note${id}.${i}text`));
+        DB.remove(`note${id}.${i}done`);
+        DB.remove(`note${id}.${i}text`);
       }
     }
-    DB.set('noteCount', noteCount - 1)
+    DB.clearCache();
+    DB.set('noteCount', noteCount - 1);
+    setTimeout(() => {
+      //location.href = location.href
+    })
   }
   ngOnInit(){
     const id = this.element.getAttribute('data-id')!;
