@@ -2,11 +2,24 @@ note-single{
     cursor: pointer;
 
     h6 {
-        font-size: 1.0625rem;
-        font-weight: 600;
-        line-height: 1.2;
         margin: 0;
         text-align: center;
+
+        &.unnamed{
+            color: #888;
+        }
+
+        &, + input{
+            font-size: 1.0625rem;
+            font-weight: 600;
+            line-height: 1.2;
+            border: 0;
+            width: 100%;
+            padding: 0;
+            text-align: center;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
     }
 
     > div{
@@ -39,10 +52,17 @@ note-single{
         input{
             pointer-events: none;
         }
+
+        h6 + input{
+            display: none;
+        }
     }
 
     &.active{
         cursor: unset;
+        h6{
+            display: none;
+        }
     }
 
     button.cancel{

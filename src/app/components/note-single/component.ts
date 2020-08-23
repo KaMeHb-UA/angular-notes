@@ -29,6 +29,8 @@ export default class NoteSingle implements OnInit{
   count: number = 0
   active: boolean = false
   renderer: Renderer2
+  name: string = ''
+  unnamed_text = 'Unnamed note'
   constructor(elm: ElementRef, renderer: Renderer2){
     this.element = elm.nativeElement;
     this.renderer = renderer;
@@ -36,6 +38,7 @@ export default class NoteSingle implements OnInit{
   ngOnInit(){
     const id = this.element.getAttribute('data-id')!;
     this.id = id;
+    this.name = DB.get(`note${id}.name`);
     this.count = +DB.get('note' + id);
     this.noteData = new Array(this.count).fill(void 0).map((_, i) => ({
       done: DB.get(`note${id}.${i}done`) || false,
@@ -79,6 +82,10 @@ export default class NoteSingle implements OnInit{
       value = DB.get(`note${this.id}.${--i}text`);
     }
     this.sortNotes();
+  }
+  setName({ value }: any){
+    this.name = value;
+    DB.set(`note${this.id}.name`, value)
   }
   clickCancel(e: any){
     e.stopPropagation();
