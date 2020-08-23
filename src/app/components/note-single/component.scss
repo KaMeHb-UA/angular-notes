@@ -60,6 +60,8 @@ note-single{
 
     &.active{
         cursor: unset;
+        
+        button.delete,
         h6{
             display: none;
         }

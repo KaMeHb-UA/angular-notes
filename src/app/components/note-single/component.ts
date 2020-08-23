@@ -35,6 +35,20 @@ export default class NoteSingle implements OnInit{
     this.element = elm.nativeElement;
     this.renderer = renderer;
   }
+  remove(e: Event){
+    e.stopPropagation();
+    const noteCount = DB.get('noteCount');
+    for(let id = +this.id + 1; id < noteCount; id++){
+      const count = +DB.get('note' + id);
+      DB.set(`note${id - 1}`, count);
+      DB.set(`note${id - 1}.name`, DB.get(`note${id}.name`));
+      for(let i = 0; i < count; i++){
+        DB.set(`note${id - 1}.${i}done`, DB.get(`note${id}.${i}done`));
+        DB.set(`note${id - 1}.${i}text`, DB.get(`note${id}.${i}text`));
+      }
+    }
+    DB.set('noteCount', noteCount - 1)
+  }
   ngOnInit(){
     const id = this.element.getAttribute('data-id')!;
     this.id = id;
