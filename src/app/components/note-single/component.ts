@@ -36,6 +36,7 @@ export default class NoteSingle implements OnInit, OnDestroy{
   }
   remove(e: Event){
     e.stopPropagation();
+    (document.activeElement as HTMLElement).blur();
     const noteCount = DB.get('noteCount');
     // clear self first
     const selfCount = +DB.get('note' + this.id);
