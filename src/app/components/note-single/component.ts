@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewEncapsulation, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewEncapsulation, Renderer2 } from '@angular/core';
 import * as DB from '../../controllers/db';
 
 type Note = {
@@ -21,7 +21,7 @@ function getNoteList(element: Element): Element{
   styleUrls: [ './component.scss' ],
   encapsulation: ViewEncapsulation.None,
 })
-export default class NoteSingle implements OnInit{
+export default class NoteSingle implements OnInit, OnDestroy{
   id: string = ''
   element: Element
   noteData: Note = []
@@ -32,6 +32,7 @@ export default class NoteSingle implements OnInit{
   unnamed_text = 'Unnamed note'
   constructor(elm: ElementRef, private renderer: Renderer2){
     this.element = elm.nativeElement;
+    this.getInitialData = this.getInitialData.bind(this) // to use as a predefined listener on DB changes
   }
   remove(e: Event){
     e.stopPropagation();
@@ -59,11 +60,9 @@ export default class NoteSingle implements OnInit{
     }
     DB.clearCache();
     DB.set('noteCount', noteCount - 1);
-    setTimeout(() => {
-      //location.href = location.href
-    })
+    for(let id = +this.id; id < noteCount; id++) DB.set(`note${id}.switch`, +!DB.get(`note${id}.switch`));
   }
-  ngOnInit(){
+  getInitialData(){
     const id = this.element.getAttribute('data-id')!;
     this.id = id;
     this.name = DB.get(`note${id}.name`);
@@ -75,12 +74,19 @@ export default class NoteSingle implements OnInit{
     }));
     this.addNext();
     this.sortNotes();
+  }
+  ngOnInit(){
+    this.getInitialData();
     this.renderer.listen(this.element, 'click', () => {
       if(this.active) return;
       this.active = true;
       this.renderer.addClass(this.element, 'active');
       this.renderer.addClass(getNoteList(this.element), 'has-active');
     });
+    DB.onChange(`note${this.id}.switch`, this.getInitialData)
+  }
+  ngOnDestroy(){
+    DB.offChange(`note${this.id}.switch`, this.getInitialData)
   }
   sortNotes(){
     this.sortedNotes = sortNote(this.noteData).filter(v => v.text).slice(0, 3)
