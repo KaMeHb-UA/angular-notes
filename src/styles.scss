@@ -52,7 +52,7 @@ note-list > add-button{
 }
 
 @media only screen and (max-width: 767px){
-    add-button{
+    note-list:not(.has-active) + add-button{
         display: block;
     }
 
