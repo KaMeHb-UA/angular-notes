@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, OnDestroy, ViewEncapsulation, Renderer2 } from '@angular/core'
-import getData, { remove, get, set } from '../../controllers/db'
+import { Component, ElementRef, OnInit, ViewEncapsulation, Renderer2 } from '@angular/core'
+import getData, { remove, get, set, runPendingEvents } from '../../controllers/db'
 import { map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
 
@@ -58,17 +58,17 @@ export default class NoteSingle implements OnInit{
 
     setText(i: number, { value }: any){
         this.note!.data[i].text = value;
-        set('notes', this.id!, this.note!)
+        set('notes', this.id!, this.note!, true)
     }
 
     setDone(i: number, { checked }: any){
         this.note!.data[i].done = checked;
-        set('notes', this.id!, this.note!)
+        set('notes', this.id!, this.note!, true)
     }
 
     setName({ value }: any){
         this.note!.name = value;
-        set('notes', this.id!, this.note!)
+        set('notes', this.id!, this.note!, true)
     }
 
     sort(note: Note | null){
@@ -94,5 +94,6 @@ export default class NoteSingle implements OnInit{
         this.active = false;
         this.renderer.removeClass(this.element.nativeElement, 'active');
         this.renderer.removeClass(getNoteList(this.element.nativeElement), 'has-active');
+        runPendingEvents()
     }
 }

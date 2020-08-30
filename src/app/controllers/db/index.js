@@ -10,4 +10,4 @@ export default function(table, name){
     })
 }
 
-export const { get, set, remove } = provider
+export const { get, set, remove, runPendingEvents } = provider
