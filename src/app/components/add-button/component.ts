@@ -7,8 +7,8 @@ import * as DB from '../../controllers/db';
   styleUrls: ['./component.scss']
 })
 export default class AddButton {
-  onClick(){
-    const count = DB.get('noteCount');
-    DB.set('noteCount', count + 1)
+  async onClick(){
+    const count = await DB.get('general', 'noteCount');
+    DB.set('general', 'noteCount', count + 1)
   }
 }

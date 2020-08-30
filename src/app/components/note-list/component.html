@@ -1,5 +1,5 @@
 <note-single
-    *ngFor="let noteId of notes;"
+    *ngFor="let note of notes | async; index as noteId"
     [attr.data-id]="noteId"
     class="shadow-1 blk-material"
 ></note-single>
