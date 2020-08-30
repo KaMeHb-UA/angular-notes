@@ -31,7 +31,7 @@ export async function set(table, name, value, silent){
     else ee.emit(name, value, 'update')
 }
 
-export function remove(table, name){
+export function remove(table, name, silent){
     name = flat(table, name);
     localStorage.removeItem(name);
     delete cache[name];
