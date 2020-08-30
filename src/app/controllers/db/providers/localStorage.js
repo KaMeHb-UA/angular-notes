@@ -52,7 +52,6 @@ export function clearCache(){
 }
 
 export function runPendingEvents(){
-    console.log(pendingEvents);
     for(const name in pendingEvents){
         const args = pendingEvents[name];
         delete pendingEvents[name];
