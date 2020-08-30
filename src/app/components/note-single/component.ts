@@ -73,11 +73,8 @@ export default class NoteSingle implements OnInit{
 
     sort(note: Note | null){
         if(!note) return note;
-        const { name, data } = note;
-        return {
-            name,
-            data: data.filter(a => !a.done).concat(data.filter(a => a.done)).filter(v => v.text).slice(0, 3)
-        } as Note
+        note.data = note.data.filter(a => !a.done).concat(note.data.filter(a => a.done)).filter(v => v.text).slice(0, 3);
+        return note
     }
 
     full(note: Note | null){
