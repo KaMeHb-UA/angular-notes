@@ -14,7 +14,7 @@ export async function get(table, name){
         try{
             cache[name] = JSON.parse(raw)
         } catch(e){
-            cache[name] = null
+            cache[name] = undefined
         }
     }
     return cache[name]
