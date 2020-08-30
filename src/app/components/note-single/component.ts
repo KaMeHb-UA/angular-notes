@@ -15,6 +15,14 @@ function getNoteList(element: Element): Element{
     return element.nodeName === 'NOTE-LIST' ? element : getNoteList(element.parentElement!)
 }
 
+function removeEmpty(arr: Note['data']): any {
+    for(let i = arr.length - 1; i >= 1; i--){
+        if(arr[i - 1] && arr[i - 1].text) return arr;
+        arr.length--;
+        delete arr[i]
+    }
+}
+
 @Component({
     selector: 'note-single',
     templateUrl: './component.html',
@@ -79,6 +87,7 @@ export default class NoteSingle implements OnInit{
 
     full(note: Note | null){
         if(!note) return note;
+        removeEmpty(note.data);
         if(!note.data.length || note.data[note.data.length - 1].text) note.data.push({
             done: false,
             text: '',
