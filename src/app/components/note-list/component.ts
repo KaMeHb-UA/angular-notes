@@ -9,5 +9,5 @@ import { map } from 'rxjs/operators'
   encapsulation: ViewEncapsulation.None,
 })
 export default class NoteList {
-  notes = getData('general', 'noteCount').pipe(map(v => new Array(v)))
+  notes = getData('general', 'noteCount').pipe(map(v => new Array(v || 0)))
 }
