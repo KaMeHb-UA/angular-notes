@@ -24,7 +24,7 @@
             >
             <input
                 (keyup)="setText(i, $event.target)"
-                placeholder="Text here"
+                [placeholder]="text_here"
                 [value]="todo.text"
             >
         </div>

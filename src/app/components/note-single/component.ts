@@ -24,6 +24,7 @@ function getNoteList(element: Element): Element{
 export default class NoteSingle implements OnInit{
     data: Observable<Note> | undefined
     unnamed_text = 'Unnamed note'
+    text_here = 'Text here'
     id: string | undefined
     active = false
     note: Note | undefined
