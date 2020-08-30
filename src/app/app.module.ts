@@ -19,6 +19,6 @@ import AddButton from './components/add-button/component';
     AppRoutingModule,
   ],
   providers: [ ],
-  bootstrap: [ AppComponent, NoteList ]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import * as DB from '../../controllers/db';
+import { Component, ViewEncapsulation } from '@angular/core'
+import getData from '../../controllers/db'
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'note-list',
@@ -8,12 +9,5 @@ import * as DB from '../../controllers/db';
   encapsulation: ViewEncapsulation.None,
 })
 export default class NoteList {
-  notes: number[] = []
-  constructor(){
-    DB.onChange('noteCount', this.updateNotes.bind(this));
-    this.updateNotes(DB.get('noteCount'))
-  }
-  updateNotes(count: number | null){
-    this.notes = new Array(+count!).fill(void 0).map((_, i) => i)
-  }
+  notes = getData('general', 'noteCount').pipe(map(v => new Array(v)))
 }

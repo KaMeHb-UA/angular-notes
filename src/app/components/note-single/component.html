@@ -3,31 +3,35 @@
     (click)="clickCancel($event)"
 ><i class="material-icons">arrow_back</i></button>
 
-<h6
-    class="{{ name ? null : 'unnamed' }}"
->{{ name ? name : unnamed_text }}</h6>
-<input
-    [placeholder]="unnamed_text"
-    (keyup)="setName($event.target)"
-    [value]="name"
+<div
+    *ngIf="(active ? full : sort)(data | async) as note"
 >
+    <h6
+        class="{{ note.name ? null : 'unnamed' }}"
+    >{{ note.name ? note.name : unnamed_text }}</h6>
+    <input
+        [placeholder]="unnamed_text"
+        (keyup)="setName($event.target)"
+        [value]="note.name"
+    >
 
-<div>
-    <div *ngFor="let todo of (active ? noteData : sortedNotes);">
-        <input
-            type="checkbox"
-            (change)="setDone(todo.i, $event.target)"
-            [attr.checked]="todo.done ? 'checked' : null"
-        >
-        <input
-            (keyup)="setText(todo.i, $event.target)"
-            placeholder="Text here"
-            [value]="todo.text"
-        >
+    <div>
+        <div *ngFor="let todo of note.data; index as i">
+            <input
+                type="checkbox"
+                (change)="setDone(i, $event.target)"
+                [attr.checked]="todo.done ? 'checked' : null"
+            >
+            <input
+                (keyup)="setText(i, $event.target)"
+                placeholder="Text here"
+                [value]="todo.text"
+            >
+        </div>
     </div>
-</div>
 
-<button
-    class="delete"
-    (click)="remove($event)"
-><i class="material-icons">delete_outline</i></button>
+    <button
+        class="delete"
+        (click)="remove($event)"
+    ><i class="material-icons">delete_outline</i></button>    
+</div>
