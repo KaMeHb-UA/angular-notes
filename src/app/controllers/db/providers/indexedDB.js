@@ -1,12 +1,9 @@
 import { EventEmitter } from 'events'
+import flat from '../../../etc/flat'
 
 const ee = new EventEmitter;
 const pendingEvents = Object.create(null);
 const cache = Object.create(null);
-
-function flat(table, name){
-    return JSON.stringify([table, name]);
-}
 
 /** @type {typeof import('./indexedDB.internal').request} */
 const request = (obj, name, ...args) => {

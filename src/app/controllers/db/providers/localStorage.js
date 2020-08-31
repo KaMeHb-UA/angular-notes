@@ -1,11 +1,8 @@
 import { EventEmitter } from 'events'
+import flat from '../../../etc/flat'
 
 const ee = new EventEmitter;
 const cache = Object.create(null);
-
-function flat(table, name){
-    return JSON.stringify([table, name]);
-}
 
 export async function get(table, name){
     name = flat(table, name);
