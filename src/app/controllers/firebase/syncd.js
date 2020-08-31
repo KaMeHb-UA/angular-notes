@@ -1,4 +1,5 @@
 import firestore from './firestore'
+import './ui'
 
 function unwrapVal(val){
     const { value } = val.data() || {};

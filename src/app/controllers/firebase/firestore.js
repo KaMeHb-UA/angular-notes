@@ -9,3 +9,5 @@ try{
 } catch(e){}
 
 export default firebase.firestore(app)
+
+export const auth = firebase.auth(app)

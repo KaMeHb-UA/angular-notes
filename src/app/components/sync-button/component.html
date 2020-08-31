@@ -1,0 +1,23 @@
+<span class="name">{{ display_name }}</span>
+<label for="sync-auth-chb" class="{{ sync_active ? 'active' : '' }}">
+    <i aria-hidden="true" class="material-icons mdc-fab__icon">sync</i>
+</label>
+<input type="checkbox" id="sync-auth-chb">
+<div id="firebaseui-auth-container">
+    <label for="sync-auth-chb">
+        <i aria-hidden="true" class="material-icons mdc-fab__icon">clear</i>
+    </label>
+</div>
+<div class="sign-out">
+    <label for="sync-auth-chb">
+        <i aria-hidden="true" class="material-icons mdc-fab__icon">clear</i>
+    </label>
+    <div class="firebaseui-container">
+        <button (click)="signOut()" class="mdl-button mdl-button--raised firebaseui-idp-button">
+            <span class="firebaseui-idp-icon-wrapper">
+                <i aria-hidden="true" class="material-icons mdc-fab__icon">power_settings_new</i>
+            </span>
+            <span class="firebaseui-idp-text firebaseui-idp-text-long">Sign Out</span>
+        </button>
+    </div>
+</div>
