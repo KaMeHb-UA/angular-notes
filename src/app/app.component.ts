@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import lang from './etc/lang'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'test-angular-app';
+  title = 'test-angular-app'
+  lang = lang
 }
