@@ -47,7 +47,7 @@ export async function get(storeName, name){
         const store = tx.objectStore(storeName);
         cache[name] = await request(store, 'get', name)
     }
-    return cache[name]
+    return cache[name] === undefined ? undefined : JSON.parse(JSON.stringify(cache[name]))
 }
 
 export async function set(storeName, name, value, silent){

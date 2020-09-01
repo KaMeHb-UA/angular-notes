@@ -14,7 +14,7 @@ export async function get(table, name){
             cache[name] = undefined
         }
     }
-    return cache[name]
+    return cache[name] === undefined ? undefined : JSON.parse(JSON.stringify(cache[name]))
 }
 
 const pendingEvents = Object.create(null);
