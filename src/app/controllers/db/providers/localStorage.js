@@ -55,3 +55,20 @@ export function runPendingEvents(){
         ee.emit(name, ...args)
     }
 }
+
+export async function listTables(){
+    const tables = new Set;
+    Object.keys(localStorage).forEach(v => {
+        try{ tables.add(JSON.parse(v)[0]); } catch(e){}
+    });
+    return [...tables]
+}
+
+export async function listNames(table){
+    const names = new Set;
+    const start = '[' + JSON.stringify(table) + ',"';
+    Object.keys(localStorage).filter(v => v.startsWith(start)).forEach(v => {
+        try{ names.add(JSON.parse(v)[0]); } catch(e){}
+    });
+    return [...names]
+}
