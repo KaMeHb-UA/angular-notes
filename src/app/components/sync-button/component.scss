@@ -1,0 +1,55 @@
+input, div{
+    display: none;
+}
+
+label{
+    display: flex;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    &.active{
+        color: #0075ff;
+    }
+
+    &:not(.active) + input:checked + #firebaseui-auth-container,
+    &.active + input:checked ~ .sign-out{
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #f7f9fc;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+
+    > i{
+        font-size: 38px;
+        cursor: pointer;
+    }
+}
+
+.name{
+    position: fixed;
+    top: 28px;
+    right: 66px;
+}
+
+.sign-out{
+    div{
+        display: block;
+        background: transparent;
+    }
+    button{
+        margin: auto;
+        display: block;
+        text-align: center;
+        background: black;
+        color: #fff;
+        text-transform: none;
+    }
+}

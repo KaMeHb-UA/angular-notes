@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import NoteList from './components/note-list/component';
 import NoteSingle from './components/note-single/component';
 import AddButton from './components/add-button/component';
+import SyncButton from './components/sync-button/component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import AddButton from './components/add-button/component';
     NoteList,
     NoteSingle,
     AddButton,
+    SyncButton,
   ],
   imports: [
     BrowserModule,

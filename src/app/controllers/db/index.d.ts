@@ -8,4 +8,8 @@ export function remove(table: string, name: string, silent?: boolean): Promise<v
 
 export function runPendingEvents(): void
 
+export function listTables(): Promise<string[]>
+
+export function listNames(table: string): Promise<string[]>
+
 export default function getData(table: string, name: string): Observable<any>

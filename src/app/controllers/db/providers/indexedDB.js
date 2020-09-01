@@ -1,12 +1,12 @@
 import { EventEmitter } from 'events'
+import flat from '../../../etc/flat'
 
 const ee = new EventEmitter;
 const pendingEvents = Object.create(null);
 const cache = Object.create(null);
+const tables = [];
 
-function flat(table, name){
-    return JSON.stringify([table, name]);
-}
+initDB(0, v => tables.push(v));
 
 /** @type {typeof import('./indexedDB.internal').request} */
 const request = (obj, name, ...args) => {
@@ -21,17 +21,21 @@ const request = (obj, name, ...args) => {
     return res
 }
 
+function initDB(version, createObjectStore){
+    switch(version){
+        case 0:
+        case 1:
+            createObjectStore('general');
+            createObjectStore('notes');
+    }
+}
+
 async function openDB(){
     const dbr = request(indexedDB, 'open', 'data', 1);
     dbr.request.onupgradeneeded = () => {
         const db = dbr.request.result;
         console.log('Upgradeneeded:', db.version, db);
-        switch(db.version){
-            case 0:
-            case 1:
-                db.createObjectStore('general');
-                db.createObjectStore('notes');
-        }
+        initDB(db.version, v => db.createObjectStore(v))
     }
     return dbr
 }
@@ -43,7 +47,7 @@ export async function get(storeName, name){
         const store = tx.objectStore(storeName);
         cache[name] = await request(store, 'get', name)
     }
-    return cache[name]
+    return cache[name] === undefined ? undefined : JSON.parse(JSON.stringify(cache[name]))
 }
 
 export async function set(storeName, name, value, silent){
@@ -84,4 +88,16 @@ export function runPendingEvents(){
         delete pendingEvents[name];
         ee.emit(name, ...args)
     }
+}
+
+export async function listTables(){
+    return [...tables]
+}
+
+export async function listNames(table){
+    const db = await openDB();
+    const tx = db.transaction(table, 'readonly');
+    const store = tx.objectStore(table);
+    const keys = await request(store, 'getAllKeys');
+    return [...keys]
 }

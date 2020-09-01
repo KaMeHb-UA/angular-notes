@@ -1,11 +1,8 @@
 import { EventEmitter } from 'events'
+import flat from '../../../etc/flat'
 
 const ee = new EventEmitter;
 const cache = Object.create(null);
-
-function flat(table, name){
-    return JSON.stringify([table, name]);
-}
 
 export async function get(table, name){
     name = flat(table, name);
@@ -17,7 +14,7 @@ export async function get(table, name){
             cache[name] = undefined
         }
     }
-    return cache[name]
+    return cache[name] === undefined ? undefined : JSON.parse(JSON.stringify(cache[name]))
 }
 
 const pendingEvents = Object.create(null);
@@ -57,4 +54,21 @@ export function runPendingEvents(){
         delete pendingEvents[name];
         ee.emit(name, ...args)
     }
+}
+
+export async function listTables(){
+    const tables = new Set;
+    Object.keys(localStorage).forEach(v => {
+        try{ tables.add(JSON.parse(v)[0]); } catch(e){}
+    });
+    return [...tables]
+}
+
+export async function listNames(table){
+    const names = new Set;
+    const start = '[' + JSON.stringify(table) + ',"';
+    Object.keys(localStorage).filter(v => v.startsWith(start)).forEach(v => {
+        try{ names.add(JSON.parse(v)[0]); } catch(e){}
+    });
+    return [...names]
 }
