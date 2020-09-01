@@ -6,6 +6,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
   font-family: Roboto, Helvetica Neue, sans-serif;
 }
+body {
+  margin: 24px 8px 8px 8px;
+}
 input:focus {
   outline: none;
 }
